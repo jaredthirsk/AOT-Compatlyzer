@@ -48,23 +48,22 @@ AOT does not support virtual methods.
 
 AOTCompatlyzer introduces some workarounds for some scenarios:
 
-class Abc {
+    class Abc 
+    {
+        // Not possible in AOT
+        T MyMethod<T>(int p1, int p2) { …  }
 
-  // Not possible in AOT
-  T MyMethod<T>(int p1, int p2) { …  }
+    #if AOT // AOTCompatlyzer will detect and use this instead!
+        object MyMethod(int p1, int p2, Type T) { …  }
+    #endif
 
-#if AOT // AOTCompatlyzer will detect and use this instead!
-  object MyMethod(int p1, int p2, Type T) { …  }
-#endif
-
-  void Run()
-  {
-     ...
-     T myObj = MyMethod<T>(1, 2);
-     ...
-  }
-
-}
+        void Run()
+        {
+            ...
+            T myObj = MyMethod<T>(1, 2);
+            ...
+        }
+    }
 
 AOTCopatlyzer will replace the Run() method with:
 
