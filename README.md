@@ -29,6 +29,8 @@ This work is published from:
   Canada</span>.
 </p>
 
+(Note: contributions are welcome, of course!)
+
 What it does
 ============
 
