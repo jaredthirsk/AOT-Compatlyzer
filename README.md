@@ -83,12 +83,12 @@ These cases are also supported:
   - both method return same type (in this case, casting to T is not necessary).
 
 #### LIMITATIONS:
-  - Only one generic parameter is supported: i.e. MyMethod<T> and not MyMethod<T1,T2>.  (TODO: This could be easily supported.)
+  - Only one generic parameter is supported: i.e. MyMethod&lt;T&gt; and not MyMethod&lt;T1,T2&gt;.  (TODO: This could be easily supported.)
 
 ### Other problems
 --------------
 
  I am not finished porting my codebase to an AOT-only environment yet.  As I run into more problems I will either adapt my codebase, or extend this utility to morph my DLL to something that works in AOT-only mode.
 
- - I believe Action<T1,T2> events fail.
+ - I believe Action&lt;T1,T2&gt; events fail.
 
