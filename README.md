@@ -15,7 +15,7 @@ LICENSE
   <br />
   To the extent possible under law,
   <a rel="dct:publisher"
-     href="jaredthirsk.com">
+     href="http://jaredthirsk.com">
     <span property="dct:title">Jared Thirsk</span></a>
   has waived all copyright and related or neighboring rights to
   <span property="dct:title">AOT-Compatlyzer</span>.
