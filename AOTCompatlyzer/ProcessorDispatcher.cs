@@ -8,7 +8,7 @@ namespace AotCompatlyzer
 	
 	public class ProcessorDispatcher
 	{
-		public static int Verbosity = 1;
+		public static int Verbosity {get{return AotCompatlyzer.Verbosity;}}
 		
 		public ProcessorDispatcher()
 		{

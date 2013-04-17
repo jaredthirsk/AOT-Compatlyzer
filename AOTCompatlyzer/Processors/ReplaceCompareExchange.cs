@@ -56,7 +56,7 @@ namespace AotCompatlyzer
 
 		public void OnDone()
 		{
-			if(Verbosity >= 1)
+			if(Verbosity >= Verbosities.Summary)
 				Console.WriteLine(" - Replaced " + replaced + " event methods (" + skipped + " skipped) ");
 		}
 
@@ -132,7 +132,7 @@ namespace AotCompatlyzer
 					}
 					
 					if(!foundCompExch) {
-						if(Verbosity >= 3) {
+						if(Verbosity >= Verbosities.SkippingVerbose) {
 							Console.WriteLine(" . ignoring body with no CompareExchange: " + type.Name + "." + method.Name);
 						}
 						skipped++;
@@ -175,7 +175,7 @@ namespace AotCompatlyzer
 						processor.Body.Instructions.Add(i);
 					}
 					
-					if(Verbosity >= 3) {
+					if(Verbosity >= Verbosities.Success) {
 						Console.WriteLine(" - replaced method: " + type.Name + "." + method.Name);
 					}
 					

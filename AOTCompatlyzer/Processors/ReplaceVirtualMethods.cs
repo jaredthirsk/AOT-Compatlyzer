@@ -12,6 +12,7 @@ namespace AotCompatlyzer
 	public static class Verbosities
 	{
 		public const int Error = 1;
+		public const int Summary = 1;
 		public const int Warning = 2;
 		public const int Skipping = 6;
 		public const int SkippingVerbose = 7;
@@ -24,7 +25,7 @@ namespace AotCompatlyzer
 	{
 		int replaced = 0;
 		int skipped = 0;
-		int Verbosity = 0;
+		int Verbosity {get{return AotCompatlyzer.Verbosity;}}
 
 		public ReplaceVirtualMethods()
 		{
@@ -118,7 +119,7 @@ namespace AotCompatlyzer
 				
 				if(genPars.Count != 1) {
 					if(Verbosity >= Verbosities.Warning)
-						Console.WriteLine("[NS] Replacing methods with more than 1 generic parameter not supported: " + genPars.Count + ": " + mr.FullName);
+						Console.WriteLine("[NS] Replacing methods with more than 1 generic parameter not supported: " + genPars.Count + ": " + mr.FullName + " in " + method.DeclaringType.FullName + "."+ method.Name);
 					continue;
 				} else {
 					genPar = genPars[0];
@@ -266,7 +267,8 @@ namespace AotCompatlyzer
 					else if(mr.ReturnType.FullName != "System.Void") { // Replacement must return object
 						if(replacementMethod_.ReturnType.Resolve().FullName != "System.Object") {
 							if(Verbosity >= 3)
-								Console.WriteLine("   x (alt) generic method returns T but candidate replacement method does not return System.Object: " + replacementMethod_.FullName);
+								Console.WriteLine(" [x?] (alt) generic method returns T but candidate replacement method does not return System.Object: " + replacementMethod_.FullName
+								                  + " [[" + mr.FullName + " in " + method.DeclaringType.FullName + "."+ method.Name+"]]");
 							continue;
 						}
 					}
@@ -279,7 +281,7 @@ namespace AotCompatlyzer
 					if(!(" " + mr.FullName).Contains(" System.")) {
 						if(Verbosity >= Verbosities.Warning)
 						Console.WriteLine("[__] No alternate found for " 
-							+ mr.FullName);
+							                  + mr.FullName + " in " + method.DeclaringType.FullName + "."+ method.Name);
 //						                  + mr.DeclaringType.FullName+"." +mr.Name + "(...)");
 					}
 					skipped++;
@@ -413,7 +415,7 @@ namespace AotCompatlyzer
 
 		public void OnDone()
 		{
-			if(Verbosity >= 0)
+			if(Verbosity >= Verbosities.Summary)
 				Console.WriteLine(" - Replaced " + replaced + " generic methods " + (skipped <= 0 ? "" : "(" + skipped + " skipped) "));
 
 		}

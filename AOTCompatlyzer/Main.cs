@@ -2,6 +2,7 @@
 //#define CUSTOM
 
 using System;
+using System.Linq;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System.Linq;
@@ -10,6 +11,11 @@ using System.Collections.Generic;
 
 namespace AotCompatlyzer
 {
+	public static class AotCompatlyzer
+	{
+		public static int Verbosity = (int)Verbosities.Warning;
+	}
+
 	class MainClass
 	{
 
@@ -29,7 +35,18 @@ namespace AotCompatlyzer
 
 			if(args.Length > 0)
 			{
-				fileList.AddRange(args);
+				IEnumerable<string> fileListArgs = args;
+				if(args[0].StartsWith ("-"))
+				{
+					int verb;
+					if(Int32.TryParse (args[0].Substring(1), out verb))
+					{
+						AotCompatlyzer.Verbosity = verb;
+						fileListArgs = fileListArgs.Skip(1);
+					}
+				}
+				
+				fileList.AddRange(fileListArgs);
 			}
 			else
 			{
@@ -44,6 +61,9 @@ namespace AotCompatlyzer
 					fileList.Add(fileName);
 				}
 			}
+
+			Console.WriteLine("Verbosity: " + AotCompatlyzer.Verbosity);
+
 
 			foreach(var fileName in fileList){
 
