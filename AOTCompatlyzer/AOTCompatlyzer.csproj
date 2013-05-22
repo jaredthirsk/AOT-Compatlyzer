@@ -20,6 +20,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Externalconsole>True</Externalconsole>
+    <Commandlineparameters> -4  /Users/jared/Src/valor/Unity/Assets/Valor/Scripts/Lion*.dll</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>

@@ -14,6 +14,9 @@ namespace AotCompatlyzer
 	public static class AotCompatlyzer
 	{
 		public static int Verbosity = (int)Verbosities.Warning;
+
+		public static bool TraceMode = false;
+		public static bool PretendMode = true;
 	}
 
 	class MainClass
@@ -33,6 +36,7 @@ namespace AotCompatlyzer
 
 			List<string> fileList = new List<string>();
 
+
 			if(args.Length > 0)
 			{
 				IEnumerable<string> fileListArgs = args;
@@ -45,7 +49,18 @@ namespace AotCompatlyzer
 						fileListArgs = fileListArgs.Skip(1);
 					}
 				}
-				
+
+				if (fileListArgs.Contains ("--trace")) {
+					AotCompatlyzer.TraceMode = true;
+					fileListArgs = fileListArgs.Where(a => a !="--trace");
+					Console.WriteLine (" --- TRACE MODE --- ");
+				}
+				if (fileListArgs.Contains ("--pretend")) {
+					AotCompatlyzer.PretendMode = true;
+					fileListArgs = fileListArgs.Where(a => a !="--pretend");
+					Console.WriteLine (" --- PRETEND MODE --- ");
+				}
+
 				fileList.AddRange(fileListArgs);
 			}
 			else

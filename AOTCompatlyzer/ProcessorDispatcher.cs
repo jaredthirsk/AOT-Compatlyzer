@@ -55,18 +55,20 @@ namespace AotCompatlyzer
 					}
 				}
 			}
-			
-			if(swap) {
-				File.Move(fileName, outFileName);
-				assembly.Write(fileName);
-				if(!keepOriginal)
-					File.Delete(outFileName);
-			} else {
-				assembly.Write(outFileName);
-				if(!keepOriginal)
-					File.Delete(fileName);
+
+			if (!AotCompatlyzer.PretendMode) {
+				if (swap) {
+					File.Move (fileName, outFileName);
+					assembly.Write (fileName);
+					if (!keepOriginal)
+						File.Delete (outFileName);
+				} else {
+					assembly.Write (outFileName);
+					if (!keepOriginal)
+						File.Delete (fileName);
+				}
 			}
-			
+
 			foreach(var p in Processors) {
 				p.OnDone();
 			}

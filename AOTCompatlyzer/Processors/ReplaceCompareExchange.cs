@@ -49,7 +49,10 @@ namespace AotCompatlyzer
 	
 	public class ReplaceCE : ITypeProcessor
 	{
-		public int Verbosity {get{return ProcessorDispatcher.Verbosity;}}
+		public int Verbosity {get{return
+				Verbosities.Warning;
+			//	ProcessorDispatcher.Verbosity;
+			}}
 
 		int replaced = 0;
 		int skipped = 0;
@@ -138,9 +141,31 @@ namespace AotCompatlyzer
 						skipped++;
 						continue;
 					}
-					
-					FieldReference field = type.Fields.Where(f => f.Name == fieldName).FirstOrDefault();
-					
+
+
+					FieldReference field;
+
+
+					if(type.HasGenericParameters)
+					{
+						var giType = new GenericInstanceType(type);
+//						var 
+//						string x = type.FullName;
+						//giType.
+						field = type.Fields.Where(f => f.Name == fieldName).FirstOrDefault();
+
+
+						Console.WriteLine("==== GENERICTYPE: " + type + " (" + type.GenericParameters.Count + ") " + giType.ToString() + ", Field: " + field.FullName);
+						foreach(var genPar in type.GenericParameters)
+						{
+							Console.WriteLine(" ==> " + genPar.FullName);
+						}
+					}
+					else
+					{
+						field = type.Fields.Where(f => f.Name == fieldName).FirstOrDefault();
+					}
+
 					if(field == null)
 						throw new Exception("Could not find field: " + fieldName + " in type " + type.FullName);
 					
