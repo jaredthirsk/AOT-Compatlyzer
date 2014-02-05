@@ -6,7 +6,7 @@ Transforms .NET DLLs for use in AOT (for use on iOS platforms, including Unity3D
 STATUS
 ======
 
-My status: Unfortunately, despite putting in a lot of time, I have not been able to successfully port all of my codebase to Unity3D's Mono.  There are issues with generic interface dispatch, including calls to foreach(IEnumerable<T>).  I like interfaces and foreach and have a lot of both, so I appear to be somewhat doomed until I can make a comprehensive sweep of my codebase (and hope I have covered all the issues, which is still a gamble.)  
+My status: This tool only addresses some of the issues in AOT compatibility.  Unfortunately, despite putting in a lot of time, I have not been able to successfully port all of my own codebase to Unity3D's Mono.  There are issues with generic interface dispatch, including calls to foreach(IEnumerable<T>).  I like interfaces and foreach and have a lot of both, so I appear to be somewhat doomed until I can make a comprehensive sweep of my codebase (and hope I have covered all the issues, which is still a gamble.)  
 
 So, I have put my iOS project on hold and am instead targeting PC (a non-Unity3D project), Mac, and Android first.  Perhaps by then Unity3D will have a newer version of mono that is less broken, or perhaps another viable cross platform C# engine will exist by then.
 
